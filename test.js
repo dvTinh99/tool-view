@@ -9,7 +9,11 @@ import dvtinh_it3 from './cookie/dvtinh_it3.json' assert { type: "json" };
 
 async function newPage(url, cookies, flag)
 {
-    const browser = await puppeteer.launch({headless: true, defaultViewport: null});
+    const browser = await puppeteer.launch({headless: true, 
+        defaultViewport: null,
+        args: ["--no-sandbox"],
+        executablePath: '/usr/bin/chromium-browser'
+    });
     const page = await browser.newPage();
     await page.setCookie(...cookies);
 
@@ -96,16 +100,6 @@ function delay(time) {
     });
  }
 
-async function removeCache(page)
-{
-    // reload without cache
-    await page.reload({waitUntil: 'networkidle2'});
-    // expect(responses.get('one-style.css').fromCache()).toBe(true);
-
-    await page.setCacheEnabled(false);
-    await page.reload({waitUntil: 'networkidle2'});
-}
-
 async function main(cookies, name){
     var i = 0;
     // var item = arr[Math.floor(Math.random()*arr.length)];
@@ -116,8 +110,8 @@ async function main(cookies, name){
 }
 
 
-main(dvtinh.cookies, 'dvtinh');
+// main(dvtinh.cookies, 'dvtinh');
 main(diana.cookies, 'diana');
-// main(awin.cookies, 'awin');
+main(awin.cookies, 'awin');
 // main(man.cookies, 'man');
 // main(dvtinh_it3.cookies, 'dvtinh_it3');
