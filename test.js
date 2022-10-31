@@ -1,28 +1,41 @@
 import puppeteer from 'puppeteer';
-import expect from 'expect';
 
 import dvtinh from './cookie/dvtinh.it.json' assert { type: "json" };
 import diana from './cookie/diana.json' assert { type: "json" };
 import awin from './cookie/awin.json' assert { type: "json" };
+import man from './cookie/man.json' assert { type: "json" };
+import dvtinh_it3 from './cookie/dvtinh_it3.json' assert { type: "json" };
 // console.log('dvtinh', dvtinh.cookies);
 
 async function newPage(url, cookies, flag)
 {
-    const browser = await puppeteer.launch({headless: true});
+    const browser = await puppeteer.launch({headless: true, defaultViewport: null});
     const page = await browser.newPage();
     await page.setCookie(...cookies);
 
-    await page.goto(url, {
+    await page.goto('https://www.youtube.com/channel/UCbAnWE-1CfUgDrPetsh7hLw/videos', {
         timeout:0,
     });
 
     const resultsSelector = '#search-input';
     await page.waitForSelector(resultsSelector);
 
-    // await page.type('#search-input  ', 'Lost Sky Fearless pt II feat Chris Linton NCS Release motivation');
 
+    await delay(getRandomArbitrary(3000, 5000));
+    
 
-    await delay(getRandomArbitrary(10000, 20000));
+    const click = await page.evaluate(resultsSelector => {
+        const video = [
+            [186,466],
+            [329,466],
+            [619,477],
+        ];
+    
+        var item = video[Math.floor(Math.random()*video.length)];
+        document.elementFromPoint(item[0], item[1]).click();
+        // document.elementFromPoint(329, 466).click();
+        // document.elementFromPoint(619, 477).click();
+    });
     const links = await page.evaluate(resultsSelector => {
         window.scroll({
             top: 1000,
@@ -70,13 +83,8 @@ async function newPage(url, cookies, flag)
         
     }, resultsSelector);
 
-    //watch video
-    // await autoScroll(page);
-
     await delay(getRandomArbitrary(60000, 120000));
     await browser.close();
-    
-    // expect(responses.get('one-style.css').fromCache()).toBe(false);
     
 }
 function getRandomArbitrary(min, max) {
@@ -100,19 +108,9 @@ async function removeCache(page)
 
 async function main(cookies, name){
     var i = 0;
-    var arr = [
-        'https://www.youtube.com/watch?v=uQslJVcn83U&ab_channel=Motivation',
-        'https://www.youtube.com/watch?v=bGC7QghdEpQ&ab_channel=Motivation',
-        'https://www.youtube.com/watch?v=evM6HvvPzkI&ab_channel=Motivation',
-        'https://www.youtube.com/watch?v=eZhXHNj1fDQ&ab_channel=Motivation',
-        'https://www.youtube.com/watch?v=yNXu0uuW0PU&ab_channel=Motivation',
-        'https://www.youtube.com/watch?v=AeStpgFYAGk&ab_channel=Motivation',
-    ];
-
-    var item = arr[Math.floor(Math.random()*arr.length)];
+    // var item = arr[Math.floor(Math.random()*arr.length)];
     while(true) {
-        // await newPage('https://www.youtube.com/watch?v=Fj22CSuQJmc&ab_channel=FUNVlogs', diana.cookies, 'diana');
-        await newPage(item, cookies, name);
+        await newPage("url", cookies, name);
         console.log(name + ' time : ' + (++i));
     }
 }
@@ -120,4 +118,6 @@ async function main(cookies, name){
 
 main(dvtinh.cookies, 'dvtinh');
 main(diana.cookies, 'diana');
-main(awin.cookies, 'awin');
+// main(awin.cookies, 'awin');
+// main(man.cookies, 'man');
+// main(dvtinh_it3.cookies, 'dvtinh_it3');
