@@ -4,50 +4,62 @@ import dvtinh from './cookie/dvtinh.it.json' assert { type: "json" };
 import diana from './cookie/diana.json' assert { type: "json" };
 import awin from './cookie/awin.json' assert { type: "json" };
 import man from './cookie/man.json' assert { type: "json" };
+import nghia2 from './cookie/nghia2.json' assert { type: "json" };
+import nghia3 from './cookie/nghia3.json' assert { type: "json" };
 import dvtinh_it3 from './cookie/dvtinh_it3.json' assert { type: "json" };
-// console.log('dvtinh', dvtinh.cookies);
 
-async function newPage(url, cookies, flag)
-{
-    const browser = await puppeteer.launch({headless: true, 
+async function newPage(url, cookies, flag) {
+    const browser = await puppeteer.launch({
+        headless: true,
         defaultViewport: null,
         args: ["--no-sandbox"],
         executablePath: '/usr/bin/chromium-browser'
     });
     const page = await browser.newPage();
+
+    try {
+        await pageView(page, cookies, browser);
+    } catch (error) {
+        console.log(error);
+        await browser.close();
+        await main(cookies, flag);
+    }
+}
+
+async function pageView(page, cookies, browser) {
     await page.setCookie(...cookies);
 
     await page.goto('https://www.youtube.com/channel/UCbAnWE-1CfUgDrPetsh7hLw/videos', {
-        timeout:0,
+        timeout: 0,
     });
 
     const resultsSelector = '#search-input';
     await page.waitForSelector(resultsSelector);
 
+    const links_0 = await page.evaluate(resultsSelector => {
+        window.scroll({
+            top: 1000,
+            left: 100,
+            behavior: 'smooth'
+        });
+    }, resultsSelector);
 
-    await delay(getRandomArbitrary(3000, 5000));
-    
+    await delay(getRandomArbitrary(1000, 2000));
 
     const click = await page.evaluate(resultsSelector => {
-        const video = [
-            [186,466],
-            [329,466],
-            [619,477],
-        ];
-    
-        var item = video[Math.floor(Math.random()*video.length)];
-        document.elementFromPoint(item[0], item[1]).click();
-        // document.elementFromPoint(329, 466).click();
-        // document.elementFromPoint(619, 477).click();
-    });
+        var video = document.getElementsByClassName('yt-simple-endpoint focus-on-expand style-scope ytd-rich-grid-media');
+
+        var item = video[Math.floor(Math.random() * video.length)];
+        item.click();
+
+    }, resultsSelector);
+
     const links = await page.evaluate(resultsSelector => {
         window.scroll({
             top: 1000,
             left: 100,
             behavior: 'smooth'
         });
-        console.log('1');
-        
     }, resultsSelector);
 
     await delay(getRandomArbitrary(5000, 7000));
@@ -58,8 +70,6 @@ async function newPage(url, cookies, flag)
             left: 100,
             behavior: 'smooth'
         });
-        console.log('2');
-        
     }, resultsSelector);
 
 
@@ -71,8 +81,6 @@ async function newPage(url, cookies, flag)
             left: 100,
             behavior: 'smooth'
         });
-        console.log('3');
-        
     }, resultsSelector);
 
     await delay(getRandomArbitrary(6000, 12000));
@@ -83,27 +91,33 @@ async function newPage(url, cookies, flag)
             left: 0,
             behavior: 'smooth'
         });
-        console.log('3');
-        
     }, resultsSelector);
 
-    await delay(getRandomArbitrary(60000, 120000));
+    await delay(getRandomArbitrary(45000, 75000));
     await browser.close();
-    
 }
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
+
+async function scrollDown(){
+    return await page.evaluate(resultsSelector => {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }, resultsSelector);
+}
 function delay(time) {
-    return new Promise(function(resolve) { 
+    return new Promise(function (resolve) {
         setTimeout(resolve, time)
     });
- }
+}
 
-async function main(cookies, name){
+async function main(cookies, name) {
     var i = 0;
-    // var item = arr[Math.floor(Math.random()*arr.length)];
-    while(true) {
+    while (true) {
         await newPage("url", cookies, name);
         console.log(name + ' time : ' + (++i));
     }
@@ -111,7 +125,16 @@ async function main(cookies, name){
 
 
 // main(dvtinh.cookies, 'dvtinh');
-main(diana.cookies, 'diana');
-main(awin.cookies, 'awin');
-// main(man.cookies, 'man');
 // main(dvtinh_it3.cookies, 'dvtinh_it3');
+
+main(diana.cookies, 'diana_1');
+main(diana.cookies, 'diana_2');
+main(diana.cookies, 'diana_3');
+
+main(awin.cookies, 'awin');
+main(awin.cookies, 'awin_2');
+main(awin.cookies, 'awin_3');
+
+main(man.cookies, 'man');
+main(nghia2.cookies, 'nghia2');
+main(nghia3.cookies, 'nghia3');
