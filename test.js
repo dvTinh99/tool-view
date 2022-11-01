@@ -17,16 +17,6 @@ async function newPage(url, cookies, flag) {
     });
     const page = await browser.newPage();
 
-    try {
-        await pageView(page, cookies, browser);
-    } catch (error) {
-        console.log(error);
-        await browser.close();
-        await main(cookies, flag);
-    }
-}
-
-async function pageView(page, cookies, browser) {
     await page.setCookie(...cookies);
 
     await page.goto('https://www.youtube.com/channel/UCbAnWE-1CfUgDrPetsh7hLw/videos', {
@@ -49,7 +39,7 @@ async function pageView(page, cookies, browser) {
     const click = await page.evaluate(resultsSelector => {
         var video = document.getElementsByClassName('yt-simple-endpoint focus-on-expand style-scope ytd-rich-grid-media');
 
-        var item = video[Math.floor(Math.random() * video.length)];
+        var item = video[video.length * Math.random() | 0];
         item.click();
 
     }, resultsSelector);
@@ -127,14 +117,14 @@ async function main(cookies, name) {
 // main(dvtinh.cookies, 'dvtinh');
 // main(dvtinh_it3.cookies, 'dvtinh_it3');
 
-main(diana.cookies, 'diana_1');
-main(diana.cookies, 'diana_2');
-main(diana.cookies, 'diana_3');
+// main(diana.cookies, 'diana_1');
+// main(diana.cookies, 'diana_2');
+// main(diana.cookies, 'diana_3');
 
-main(awin.cookies, 'awin');
-main(awin.cookies, 'awin_2');
-main(awin.cookies, 'awin_3');
+// main(awin.cookies, 'awin');
+// main(awin.cookies, 'awin_2');
+// main(awin.cookies, 'awin_3');
 
-main(man.cookies, 'man');
-main(nghia2.cookies, 'nghia2');
+// main(man.cookies, 'man');
+// main(nghia2.cookies, 'nghia2');
 main(nghia3.cookies, 'nghia3');
