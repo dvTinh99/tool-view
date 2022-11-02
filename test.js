@@ -28,8 +28,10 @@ async function newPage(url, cookies, flag) {
 
     await page.evaluate(resultsSelector => {
         var arr = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-grid-video-renderer');
-        if (arr && arr.leng > 0) {
-            arr[arr.length * Math.random() | 0].click();
+        if (arr && arr.length > 0) {
+            let ran = arr.length * Math.random();
+            arr[ran | 0].click();
+            // console.log('ran', ran);
         }
     });
 
