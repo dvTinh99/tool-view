@@ -13,10 +13,8 @@ async function newPage(url, cookies, flag) {
 
     await page.goto('https://www.youtube.com/channel/UCbAnWE-1CfUgDrPetsh7hLw/videos', {
         timeout: 0,
+        waitUntil: 'domcontentloaded'
     });
-
-    const resultsSelector = '#search-input';
-    await page.waitForSelector(resultsSelector);
 
     const links_0 = await page.evaluate(resultsSelector => {
         window.scroll({
@@ -24,7 +22,7 @@ async function newPage(url, cookies, flag) {
             left: 100,
             behavior: 'smooth'
         });
-    }, resultsSelector);
+    });
 
     await delay(getRandomArbitrary(1000, 2000));
 
@@ -34,7 +32,7 @@ async function newPage(url, cookies, flag) {
         var item = video[video.length * Math.random() | 0];
         item.click();
 
-    }, resultsSelector);
+    });
 
     const links = await page.evaluate(resultsSelector => {
         window.scroll({
@@ -42,7 +40,7 @@ async function newPage(url, cookies, flag) {
             left: 100,
             behavior: 'smooth'
         });
-    }, resultsSelector);
+    });
 
     await delay(getRandomArbitrary(5000, 7000));
 
@@ -52,7 +50,7 @@ async function newPage(url, cookies, flag) {
             left: 100,
             behavior: 'smooth'
         });
-    }, resultsSelector);
+    });
 
 
     await delay(getRandomArbitrary(5000, 15000));
@@ -63,7 +61,7 @@ async function newPage(url, cookies, flag) {
             left: 100,
             behavior: 'smooth'
         });
-    }, resultsSelector);
+    });
 
     await delay(getRandomArbitrary(6000, 12000));
 
@@ -73,7 +71,7 @@ async function newPage(url, cookies, flag) {
             left: 0,
             behavior: 'smooth'
         });
-    }, resultsSelector);
+    });
 
     await delay(getRandomArbitrary(45000, 75000));
     await browser.close();
@@ -89,7 +87,7 @@ async function scrollDown(){
             left: 0,
             behavior: 'smooth'
         });
-    }, resultsSelector);
+    });
 }
 function delay(time) {
     return new Promise(function (resolve) {
