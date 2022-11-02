@@ -128,3 +128,5 @@ async function main(cookies, name) {
 // main(man.cookies, 'man');
 // main(nghia2.cookies, 'nghia2');
 main(nghia3.cookies, 'nghia3');
+
+//pm2 start test.js --name diana_3 --exp-backoff-restart-delay=100
