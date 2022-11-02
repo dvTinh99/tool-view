@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 
 async function newPage(url, cookies, flag) {
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         defaultViewport: null,
         args: ["--no-sandbox"],
         executablePath: '/usr/bin/chromium-browser'
