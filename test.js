@@ -100,7 +100,10 @@ export default async function main(cookies, name) {
     var i = 0;
     while (true) {
         await newPage("url", cookies, name);
-        console.log(name + ' time : ' + (++i));
+        var currentdate = new Date();
+        console.log(name + ':' + currentdate.getHours() + ":"  
+        + currentdate.getMinutes() + ":" 
+        + currentdate.getSeconds() +' :time : ' + (++i));
     }
 }
 
