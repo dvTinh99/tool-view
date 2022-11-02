@@ -100,27 +100,12 @@ export default async function main(cookies, name) {
     var i = 0;
     while (true) {
         await newPage("url", cookies, name);
-        var currentdate = new Date();
-        console.log(name + ':' + currentdate.getHours() + ":"  
-        + currentdate.getMinutes() + ":" 
-        + currentdate.getSeconds() +' :time : ' + (++i));
+        var currentdate = new Date().toLocaleString('en-US', {
+            timeZone: 'Asia/Ho_Chi_Minh'
+        });
+        console.log(name + ':' + currentdate +' :time : ' + (++i));
     }
 }
 
-
-// main(dvtinh.cookies, 'dvtinh');
-// main(dvtinh_it3.cookies, 'dvtinh_it3');
-
-// main(diana.cookies, 'diana_1');
-// main(diana.cookies, 'diana_2');
-// main(diana.cookies, 'diana_3');
-
-// main(awin.cookies, 'awin');
-// main(awin.cookies, 'awin_2');
-// main(awin.cookies, 'awin_3');
-
-// main(man.cookies, 'man');
-// main(nghia2.cookies, 'nghia2');
-// main(nghia3.cookies, 'nghia3');
 
 //pm2 start test.js --name diana_3 --exp-backoff-restart-delay=100
