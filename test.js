@@ -11,7 +11,7 @@ async function newPage(url, cookies, flag) {
 
     await page.setCookie(...cookies);
 
-    await page.goto('https://www.youtube.com/channel/UCbAnWE-1CfUgDrPetsh7hLw/videos', {
+    await page.goto('https://www.youtube.com/channel/UCbAnWE-1CfUgDrPetsh7hLw', {
         timeout: 0,
         waitUntil: 'domcontentloaded'
     });
@@ -26,12 +26,11 @@ async function newPage(url, cookies, flag) {
 
     await delay(getRandomArbitrary(1000, 2000));
 
-    const click = await page.evaluate(resultsSelector => {
-        var video = document.getElementsByClassName('yt-simple-endpoint focus-on-expand style-scope ytd-rich-grid-media');
-
-        var item = video[video.length * Math.random() | 0];
-        item.click();
-
+    await page.evaluate(resultsSelector => {
+        var arr = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-grid-video-renderer');
+        if (arr && arr.leng > 0) {
+            arr[arr.length * Math.random() | 0].click();
+        }
     });
 
     const links = await page.evaluate(resultsSelector => {
