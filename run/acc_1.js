@@ -6,4 +6,4 @@ import nghia3 from '../cookie/nghia3.json' assert { type: "json" };
 
 import main from '../test.js';
 
-main(diana.cookies, process.argv[2]);
+main(diana.cookies, 'acc_1');

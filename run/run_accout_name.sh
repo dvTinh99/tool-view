@@ -1,0 +1,1 @@
+pm2 start $1 --exp-backoff-restart-delay=100 --name $2
