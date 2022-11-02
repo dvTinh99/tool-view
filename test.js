@@ -1,16 +1,8 @@
 import puppeteer from 'puppeteer';
 
-import dvtinh from './cookie/dvtinh.it.json' assert { type: "json" };
-import diana from './cookie/diana.json' assert { type: "json" };
-import awin from './cookie/awin.json' assert { type: "json" };
-import man from './cookie/man.json' assert { type: "json" };
-import nghia2 from './cookie/nghia2.json' assert { type: "json" };
-import nghia3 from './cookie/nghia3.json' assert { type: "json" };
-import dvtinh_it3 from './cookie/dvtinh_it3.json' assert { type: "json" };
-
 async function newPage(url, cookies, flag) {
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         defaultViewport: null,
         args: ["--no-sandbox"],
         executablePath: '/usr/bin/chromium-browser'
@@ -105,7 +97,7 @@ function delay(time) {
     });
 }
 
-async function main(cookies, name) {
+export default async function main(cookies, name) {
     var i = 0;
     while (true) {
         await newPage("url", cookies, name);
@@ -127,6 +119,6 @@ async function main(cookies, name) {
 
 // main(man.cookies, 'man');
 // main(nghia2.cookies, 'nghia2');
-main(nghia3.cookies, 'nghia3');
+// main(nghia3.cookies, 'nghia3');
 
 //pm2 start test.js --name diana_3 --exp-backoff-restart-delay=100
