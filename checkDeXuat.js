@@ -20,7 +20,9 @@ export default async function checkVideoDeXuat(page) {
 
         var arr_element = [];
         for (let index = 1; index <= 10; index++) {
-            var getElementByxPath = getElementByXpath("/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[2]/div/div[3]/ytd-watch-next-secondary-results-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-compact-video-renderer["+index+"]/div[1]/div/div[1]/a");
+            var getElementByxPath = getElementByXpath("/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[2]/div[9]/ytd-watch-next-secondary-results-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-compact-video-renderer["+index+"]/div[1]/ytd-thumbnail/a");
+
+            
 
             // console.log(getElementByxPath.href);
             if (_10Elment.includes(getElementByxPath.href)) {

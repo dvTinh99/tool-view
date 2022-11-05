@@ -6,8 +6,10 @@ import { delay, getRandomArbitrary } from './lib.js';
 async function newPage(url, cookies, flag) {
     const browser = await puppeteer.launch({
         headless: false,
-        defaultViewport: null,
-        // args: ["--no-sandbox"],
+        args: [
+            "--no-sandbox",
+            '--window-size=100,500',
+        ],
         // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
     });
     const page = await browser.newPage();
@@ -63,13 +65,13 @@ async function newPage(url, cookies, flag) {
 
 export default async function main(cookies, name) {
     var i = 0;
-    // while (true) {
+    while (true) {
         await newPage("url", cookies, name);
         var currentdate = new Date().toLocaleString('en-US', {
             timeZone: 'Asia/Ho_Chi_Minh'
         });
         console.log(name + ':' + currentdate +' :time : ' + (++i));
-    // }
+    }
 }
 
 
